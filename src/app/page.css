@@ -1,11 +1,11 @@
 .page {
+  background-color: #f0f2f5; 
+  min-height: 100vh;
+  color: #1c1e21;
   display: flex;
-  flex: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+  padding-top: 20px;
 }
 
 .main {
@@ -53,4 +53,39 @@
 .post-card h4 {
   color: #536471;
   margin-bottom: 5px;
+}
+
+.post-card {
+  background: white;
+  border-radius: 15px; /* Bordes redondeados como la foto */
+  padding: 20px;
+  margin: 15px 0;
+  border: 1px solid #e1e8ed;
+  cursor: pointer;
+}
+
+.post-card h1 {
+  display: inline;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.post-time {
+  display: inline;
+  color: #657786;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.post-body p {
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+.post-actions button {
+  background: none;
+  border: none;
+  color: #657786;
+  margin-right: 20px;
+  cursor: pointer;
 }

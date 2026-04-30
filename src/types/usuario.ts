@@ -16,15 +16,14 @@ export type Comment = {
 };
 
 export type Post = {
-  id: string;
-  content: string;
+  _id: string;
+  contenido: string;
+  autor: User;
+  likes: string[];
+  retweets: { usuario: string; fecha: string }[];
+  comentarios: Comment[];
   createdAt: string;
-  likesCount: number;
-  retweetsCount: number;
-  likedByMe?: boolean;
-  retweetedByMe?: boolean;
-  author: User;
-  comments?: Comment[];
+  updatedAt: string;
 };
 
 export type HomeResponse = {

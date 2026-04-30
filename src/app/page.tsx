@@ -40,27 +40,25 @@ const Home = () => {
     try {
       await createPost(newPostContent);
       setNewPostContent("");
-      fetchPosts(); // Recargamos el feed para ver el nuevo post
+      fetchPosts(); 
     } catch (error) {
       console.error("Error al publicar", error);
     }
   };
 
-  const handleLike = async (id: string, e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita que el clic te lleve al detalle del post
+  const handleLike = async (id: string) => {
     try {
       await toggleLikePost(id);
-      fetchPosts(); // Refrescamos para obtener el nuevo conteo de likes
+      fetchPosts();
     } catch (error) {
       console.error("Error al dar like", error);
     }
   };
 
-  const handleRetweet = async (id: string, e: React.MouseEvent) => {
-    e.stopPropagation(); 
+  const handleRetweet = async (id: string) => { 
     try {
       await retweetPost(id);
-      fetchPosts(); // Refrescamos para obtener el nuevo conteo de RTs
+      fetchPosts();
     } catch (error) {
       console.error("Error al hacer retweet", error);
     }
@@ -68,7 +66,7 @@ const Home = () => {
 
   return (
     <div className="page">
-      {/* Formulario de creación */}
+      {/* Postear */}
       <div className="create-post">
         <form onSubmit={handleCreatePost}>
           <textarea
@@ -83,29 +81,36 @@ const Home = () => {
 
       {/* Feed de Posts */}
       <div className="feed">
-        {posts.map((post) => (
+        {posts.map((post: Post) => (
           <div 
-            key={post.id} 
+            key={ post._id} 
             className="post-card" 
-            onClick={() => router.push(`/post/${post.id}`)}
-            style={{ cursor: "pointer", border: "1px solid #ccc", margin: "10px 0", padding: "10px" }}
+            onClick={() => router.push(`/post/${post._id}`)}
           >
-            <h4>{post.author?.username || "Usuario anónimo"}</h4>
-            <p>{post.content}</p>
+            <div className="post-header">
+              <h1>{post.autor?.username || post.autor.username || "Usuario"}</h1>
+              <p className="post-time">{post.createdAt ? "hace un momento" : ""}</p>
+            </div>
             
-            <div className="actions">
-              <button onClick={(e) => handleLike(post.id, e)}>
-                {post.likedByMe ? "like": "not liked"} {post.likesCount}
+            <div className="post-body">
+              <p>{post.contenido || "Sin texto"}</p>
+            </div>
+
+            {/*Likes, Retweets y Comentarios */}
+            <div className="post-actions">
+              <button onClick={(e) => { e.stopPropagation(); handleLike(post._id); }}>
+                ♡ {post.likes.length || 0}
               </button>
-              <button onClick={(e) => handleRetweet(post.id, e)}>
-                {post.retweetedByMe ? "(RT)" : "not RT"} {post.retweetsCount}
+              <button onClick={(e) => { e.stopPropagation(); handleRetweet(post._id); }}>
+                🔁 {post.retweets.length || 0}
+              </button>
+              <button>
+                💬 {post.comentarios.length || 0}
               </button>
             </div>
           </div>
         ))}
       </div>
-
-      {/* Paginación */}
       <div className="pagination" style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
         <button 
           disabled={page <= 1} 
