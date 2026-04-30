@@ -38,3 +38,7 @@ export type AuthResponse = {
   user?: User | null;
 };
 
+export type ProfileResponse = {
+  user: User;
+  posts: Post[];
+};

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AuthResponse, HomeResponse, Post} from "@/types/usuario";
+import { AuthResponse, HomeResponse, Post, ProfileResponse } from "@/types/usuario";
 
 const api = axios.create({
   baseURL: "https://backend-p4-klvc.onrender.com",
@@ -31,23 +31,23 @@ const sacarToken = (data: any) => {
 };
 
 const sacarUser = (data: any) => {
-  return data?.user || data?.data?.user || data?.data || null;
+  return data?.user ||  null;
 };
 
 const sacarPosts = (data: any) => {
-  return data?.posts ||[];
+  return data?.posts ||  [];
 };
 
 const sacarTotalPages = (data: any) => {
-  return data?.totalPages ||  1;
+  return data?.totalPages  || 1;
 };
 
 const sacarTotalPosts = (data: any) => {
-  return data?.totalPosts || 0;
+  return data?.totalPosts ||  0;
 }
 
 const sacarPage = (data: any) => {
-  return data?.page|| 1;
+  return data?.page ||  1;
 };
 
 export const registerUser = async (
@@ -120,6 +120,13 @@ export const commentPost = async (id: string, content: string) => {
   return res.data;
 };
 
+export const getMyProfile = async (): Promise<ProfileResponse> => {
+  const res = await api.get("/api/users/me");
 
+  return {
+    user: res.data?.user,
+    posts: res.data?.posts|| [],
+  };
+};
 
 export default api;

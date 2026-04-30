@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { toggleLikePost, retweetPost } from "@/lib/api/conexion";
-
+import "@/app/page.css"
 const PostCard = ({ post, refrescar }: any) =>{
   const router = useRouter();
 
@@ -42,7 +42,6 @@ const PostCard = ({ post, refrescar }: any) =>{
         <button onClick={handleRetweet}>
           🔁 {post.retweets?.length || 0}
         </button>
-        {/* Botón visual para comentarios */}
         <button>
           💬 {post.comentarios?.length || 0}
         </button>

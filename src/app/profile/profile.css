@@ -1,0 +1,55 @@
+.profile-container {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background-color: #ffffff;
+  color: #000000;
+  min-height: 100vh;
+}
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 30px;
+  margin-bottom: 40px;
+}
+.profile-info h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #000;
+}
+.profile-info .email {
+  color: #666;
+  font-size: 0.9rem;
+}
+.profile-stats {
+  display: flex;
+  gap: 25px;
+}
+.stat {
+  text-align: center;
+}
+.stat span {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #3b66de; 
+}
+.stat label {
+  font-size: 0.7rem;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.section-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #000;
+}
+.posts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
-
+"@/app/page.css"
 const Header = () => {
   const router = useRouter();
   const pathname = usePathname();

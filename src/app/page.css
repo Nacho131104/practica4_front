@@ -34,7 +34,6 @@
   gap: 20px;
   padding: 20px;
 }
-
 .post-card {
   background: white;
   border: 1px solid #e1e8ed;
@@ -45,16 +44,13 @@
   color: #0f1419; 
   transition: background 0.2s;
 }
-
 .post-card:hover {
   background: #f7f7f7;
 }
-
 .post-card h4 {
   color: #536471;
   margin-bottom: 5px;
 }
-
 .post-card {
   background: white;
   border-radius: 15px;
@@ -63,29 +59,59 @@
   border: 1px solid #e1e8ed;
   cursor: pointer;
 }
-
 .post-card h1 {
   display: inline;
   font-size: 16px;
   font-weight: bold;
 }
-
 .post-time {
   display: inline;
   color: #657786;
   margin-left: 10px;
   font-size: 14px;
 }
-
 .post-body p {
   font-size: 15px;
   margin: 10px 0;
 }
-
 .post-actions button {
   background: none;
   border: none;
   color: #657786;
   margin-right: 20px;
   cursor: pointer;
+}
+.header {
+  width: 100%;
+  background-color: #ffffff; 
+  border-bottom: 1px solid #f0f0f0; 
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.headerContent {
+  max-width: 650px; 
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #000000;
+  cursor: pointer;
+  margin: 0;
+}
+.headerContent button {
+  background: none;
+  border: none;
+  color: #3b66de; 
+  font-weight: 600;
+  margin-left: 20px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: opacity 0.2s;
 }
