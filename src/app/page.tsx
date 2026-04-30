@@ -69,7 +69,7 @@ const Home = () => {
   return (
     <div className="page">
       {/* Formulario de creación */}
-      <section className="create-post">
+      <div className="create-post">
         <form onSubmit={handleCreatePost}>
           <textarea
             placeholder="¿Qué está pasando?"
@@ -79,10 +79,10 @@ const Home = () => {
           />
           <button type="submit">Postear</button>
         </form>
-      </section>
+      </div>
 
       {/* Feed de Posts */}
-      <section className="feed">
+      <div className="feed">
         {posts.map((post) => (
           <div 
             key={post.id} 
@@ -95,15 +95,15 @@ const Home = () => {
             
             <div className="actions">
               <button onClick={(e) => handleLike(post.id, e)}>
-                {post.likedByMe ? "❤️" : "🤍"} {post.likesCount}
+                {post.likedByMe ? "like": "not liked"} {post.likesCount}
               </button>
               <button onClick={(e) => handleRetweet(post.id, e)}>
-                {post.retweetedByMe ? "🔁 (RT)" : "🔁"} {post.retweetsCount}
+                {post.retweetedByMe ? "(RT)" : "not RT"} {post.retweetsCount}
               </button>
             </div>
           </div>
         ))}
-      </section>
+      </div>
 
       {/* Paginación */}
       <div className="pagination" style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
@@ -113,7 +113,7 @@ const Home = () => {
         >
           Anterior
         </button>
-        <span>Página {page} de {totalPages}</span>
+        <p>Página {page} de {totalPages}</p>
         <button 
           disabled={page >= totalPages} 
           onClick={() => setPage(page + 1)}
