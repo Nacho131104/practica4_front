@@ -1,10 +1,12 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+## Para ejecutar el programa 
+
+1. Hacer git clone del repo con el enlace dado.
+2. Ejecutar los siguientes comandos, para instalar dependencias y ejecutar el programa
 
 ```bash
+npm install 
 npm run dev
 # or
 yarn dev
@@ -16,21 +18,33 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### Arquitectura y Soluciones Técnicas
 
-To learn more about Next.js, take a look at the following resources:
+#### 1. Navegación
+La navegación se ha implementado utilizando un componente **Header** global ubicado en el `layout.tsx`. Este componente utiliza:
+*   **Next.js Navigation**: Uso de `usePathname` y `useRouter` para detectar la ruta actual y permitir el movimiento entre *Home* y *Perfil*.
+*   **Protección de Rutas**: Se implementó una lógica de verificación de token en el `Header` y en las páginas privadas para redirigir al `/login` si el usuario no está autenticado.
+#### 2. Gestión de Datos Anidados de la API
+Uno de los retos principales fue la integración con el backend, por la estructura de respuesta de los endpoints. Para resolver esto, se crearon **funciones** en el archivo de conexión:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+*   **Problema**: La API a veces devuelve los datos directamente en la raíz del objeto de respuesta (`res.data`) lo cual a veces se me ha hecho lioso auqnue al final dandome cuenta de donde estaba el error. 
+*   **Solución**: Se implementaron helpers como `sacarTotalPages` y `sacarPosts` que utilizan encadenamiento opcional (*Optional Chaining*).
+*   **Paginación**: Se detectó que si no se mapeaba correctamente el campo `totalPaginas`, el frontend por defecto asumía `1`. Al normalizar la extracción de datos, la paginación de la *Home* y del *Perfil* funciona de manera dinámica.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### 3. Interceptores de Axios
+Se configuró un interceptor de peticiones para inyectar automáticamente:
+1.  El **Token de Autorización** recuperado del `localStorage`.
+2.  Headers personalizados requeridos por el backend, como `x-nombre`.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Estructura de Carpetas
+*   `/api`: Lógica de conexión con Axios y funciones de fetch.
+*   `/app`: Rutas de la aplicación.
+*   `/components`: Componentes reutilizables como `PostCard` y `Header`.
+*   `/types`: Definiciones de interfaces de TypeScript para asegurar el tipado de los datos de la API.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
