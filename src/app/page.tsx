@@ -15,7 +15,6 @@ const Home = () => {
   const [newPostContent, setNewPostContent] = useState("");
 
   useEffect(() => {
-    // Redirigir al login si no hay token (proxy del front)
     const token = localStorage.getItem("token");
     if (!token || token === "undefined") {
       router.push("/login");
@@ -28,7 +27,7 @@ const Home = () => {
     try {
       const data = await getHomePosts(page);
       setPosts(data.posts);
-      setTotalPages(data.totalPages);
+      setTotalPages(data.totalPaginas);
     } catch (error) {
       console.error("Error al cargar el feed", error);
     }
@@ -44,24 +43,6 @@ const Home = () => {
       fetchPosts(); 
     } catch (error) {
       console.error("Error al publicar", error);
-    }
-  };
-
-  const handleLike = async (id: string) => {
-    try {
-      await toggleLikePost(id);
-      fetchPosts();
-    } catch (error) {
-      console.error("Error al dar like", error);
-    }
-  };
-
-  const handleRetweet = async (id: string) => { 
-    try {
-      await retweetPost(id);
-      fetchPosts();
-    } catch (error) {
-      console.error("Error al hacer retweet", error);
     }
   };
 
@@ -90,7 +71,7 @@ const Home = () => {
           />
         ))}
       </div>
-      <div className="pagination" style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
+      <div className="pagination" >
         <button 
           disabled={page <= 1} 
           onClick={() => setPage(page - 1)}

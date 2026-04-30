@@ -9,7 +9,7 @@ export type User = {
 };
 
 export type Comment = {
-  id: string;
+  _id: string;
   content: string;
   createdAt: string;
   author: User;
@@ -28,8 +28,9 @@ export type Post = {
 
 export type HomeResponse = {
   posts: Post[];
-  page: number;
-  totalPages: number;
+  pagina: number;
+  totalPaginas: number;
+  totalPosts: number;
 };
 
 export type AuthResponse = {
@@ -37,9 +38,3 @@ export type AuthResponse = {
   user?: User | null;
 };
 
-export type ProfileResponse = {
-  user: User;
-  posts: Post[];
-  page?: number;
-  totalPages?: number;
-};

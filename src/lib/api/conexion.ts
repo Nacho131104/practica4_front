@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AuthResponse, HomeResponse, Post, ProfileResponse } from "@/types/usuario";
+import { AuthResponse, HomeResponse, Post} from "@/types/usuario";
 
 const api = axios.create({
   baseURL: "https://backend-p4-klvc.onrender.com",
@@ -35,15 +35,19 @@ const sacarUser = (data: any) => {
 };
 
 const sacarPosts = (data: any) => {
-  return data?.posts || data?.data?.posts || data?.data || [];
+  return data?.posts ||[];
 };
 
 const sacarTotalPages = (data: any) => {
-  return data?.totalPages || data?.data?.totalPages || data?.meta?.totalPages || 1;
+  return data?.totalPages ||  1;
 };
 
+const sacarTotalPosts = (data: any) => {
+  return data?.totalPosts || 0;
+}
+
 const sacarPage = (data: any) => {
-  return data?.page || data?.data?.page || data?.meta?.page || 1;
+  return data?.page|| 1;
 };
 
 export const registerUser = async (
@@ -83,8 +87,9 @@ export const getHomePosts = async (page: number): Promise<HomeResponse> => {
 
   return {
     posts: sacarPosts(res.data),
-    page: sacarPage(res.data),
-    totalPages: sacarTotalPages(res.data),
+    pagina: sacarPage(res.data),
+    totalPaginas: sacarTotalPages(res.data),
+    totalPosts: sacarTotalPosts(res.data),
   };
 };
 
@@ -115,15 +120,6 @@ export const commentPost = async (id: string, content: string) => {
   return res.data;
 };
 
-export const getMyProfile = async (): Promise<ProfileResponse> => {
-  const res = await api.get("/api/users/me");
 
-  return {
-    user: res.data?.user || res.data?.data?.user || res.data,
-    posts: res.data?.posts || res.data?.data?.posts || [],
-    page: res.data?.page || res.data?.data?.page || 1,
-    totalPages: res.data?.totalPages || res.data?.data?.totalPages || 1,
-  };
-};
 
 export default api;
