@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser, registerUser } from "@/lib/api/conexion";
-
+import "./auth.css"
 const LoginPage = () => {
   const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
@@ -51,55 +51,34 @@ const LoginPage = () => {
     }
   };
 
-  return (
-    <section className="authSection">
-      <div className="authCard">
-        <h2>{isLogin ? "Iniciar sesión" : "Crear cuenta"}</h2>
+    return (
+    <div className="authSection">
+        <h1 className="logo-text">Nebrija<span>Social</span></h1>
 
+        <div className="authCard">
         <form onSubmit={handleSubmit} className="authForm">
-          {!isLogin && (
-            <input
-              type="text"
-              placeholder="Nombre de usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          )}
+            {!isLogin && (
+            <div>
+                <p>Usuario</p>
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            </div>
+            )}
 
-          <input
-            type="email"
-            placeholder="Correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+            <p>Email</p>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-          <input
-            type="password"
-            placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            <p>Contraseña</p>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-          <button type="submit">{isLogin ? "Entrar" : "Registrarme"}</button>
+            <button type="submit">{isLogin ? "Entrar" : "Registrarme"}</button>
         </form>
 
-        <button
-          className="secondaryButton"
-          onClick={() => {
-            setIsLogin(!isLogin);
-            setUsername("");
-            setEmail("");
-            setPassword("");
-          }}
-        >
-          {isLogin ? "Crear cuenta nueva" : "Ya tengo cuenta"}
+        <button className="secondaryButton" onClick={() => setIsLogin(!isLogin)}>
+            {isLogin ? "Crear cuenta nueva" : "Ya tengo cuenta"}
         </button>
-      </div>
-    </section>
-  );
+        </div>
+    </div>
+    );
 };
 
 export default LoginPage;

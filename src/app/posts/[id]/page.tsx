@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { getPostById, toggleLikePost, retweetPost, commentPost } from "@/lib/api/conexion";
 import { Post } from "@/types/usuario";
 import "./post.css";
-
+import { Comment } from "@/types/usuario";
 const PostDetailPage = () => {
   const { id } = useParams();
   const router = useRouter();
@@ -72,20 +72,20 @@ const PostDetailPage = () => {
 
       <div className="main-post">
         <div className="post-header">
-          <h1>{post.author?.username || "Usuario"}</h1>
+          <h1>{post.autor?.username || "Usuario"}</h1>
           <p className="date">{post.createdAt}</p>
         </div>
 
         <div className="post-content">
-          <p>{post.content}</p>
+          <p>{post.contenido}</p>
         </div>
 
         <div className="post-actions">
           <button onClick={handleLike}>
-            Like: {post.likesCount}
+            Like: {post.likes.length || 0}
           </button>
           <button onClick={handleRetweet}>
-            RT: {post.retweetsCount}
+            RT: {post.retweets.length || 0}
           </button>
         </div>
       </div>
@@ -105,8 +105,8 @@ const PostDetailPage = () => {
 
         <div className="comments-list">
           {post.comentarios && post.comentarios.length > 0 ? (
-            post.comentarios.map((comment: any) => (
-              <div key={comment.id || comment._id} className="comment-item">
+            post.comentarios.map((comment: Comment) => (
+              <div key={comment._id} className="comment-item">
                 <h1>{comment.author?.username || "Usuario"}</h1>
                 <p>{comment.content}</p>
               </div>

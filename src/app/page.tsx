@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getHomePosts, createPost, toggleLikePost, retweetPost } from "@/lib/api/conexion";
 import { Post } from "@/types/usuario";
+import PostCard from "@/app/components/postCard";
 import "./page.css";
 
 const Home = () => {
@@ -81,34 +82,12 @@ const Home = () => {
 
       {/* Feed de Posts */}
       <div className="feed">
-        {posts.map((post: Post) => (
-          <div 
-            key={ post._id} 
-            className="post-card" 
-            onClick={() => router.push(`/post/${post._id}`)}
-          >
-            <div className="post-header">
-              <h1>{post.autor?.username || post.autor.username || "Usuario"}</h1>
-              <p className="post-time">{post.createdAt ? "hace un momento" : ""}</p>
-            </div>
-            
-            <div className="post-body">
-              <p>{post.contenido || "Sin texto"}</p>
-            </div>
-
-            {/*Likes, Retweets y Comentarios */}
-            <div className="post-actions">
-              <button onClick={(e) => { e.stopPropagation(); handleLike(post._id); }}>
-                ♡ {post.likes.length || 0}
-              </button>
-              <button onClick={(e) => { e.stopPropagation(); handleRetweet(post._id); }}>
-                🔁 {post.retweets.length || 0}
-              </button>
-              <button>
-                💬 {post.comentarios.length || 0}
-              </button>
-            </div>
-          </div>
+        {posts.map((post: any) => (
+          <PostCard 
+            key={post._id} 
+            post={post} 
+            refrescar={fetchPosts} 
+          />
         ))}
       </div>
       <div className="pagination" style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
